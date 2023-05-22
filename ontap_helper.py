@@ -15,9 +15,6 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 # chcek and set environment variables
-os.environ['no_proxy'] = '*'
-str_username = os.environ['ONTAP_USER']
-str_password = os.environ['ONTAP_PASS']
 if (os.environ.get('ONTAP_USER') is None):
    sys.exit("ontap_helper.py: error: Environment variable ONTAP_USER needs to be set.")
 if (os.environ.get('ONTAP_PASS') is None):
@@ -124,8 +121,7 @@ def ontap_volume_mount(in_args):
 # run when operator uses 'share_create' verb
 # triggers a share creation operation to specified path in the svm namespace
 def ontap_share_create(in_args):
-   response = requests.post("https://"+in_args.svm+"/api/protocols/cifs/shares", '{"svm": {"name": "'+in_args.svm+'"}, "name": "'+in_args.share+'", "path": "'+in_args.path+'"}', auth=(str_usern
-ame, str_password), verify=False)
+   response = requests.post("https://"+in_args.svm+"/api/protocols/cifs/shares", '{"svm": {"name": "'+in_args.svm+'"}, "name": "'+in_args.share+'", "path": "'+in_args.path+'"}', auth=(str_username, str_password), verify=False)
    print "status_code: " + str(response.status_code)
    if (response.status_code == 200 or response.status_code == 201 or response.status_code == 202):
       print "creation of share "+in_args.share+" to path "+in_args.path+" complete"
