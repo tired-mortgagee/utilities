@@ -145,15 +145,26 @@ def ontap_share_show(in_args):
    else:
       print "ontap_helper.py: error: " + str(json.loads(response.content))
 
+# function ontap_volume_snapshot_policy:
+# run when operator uses 'volume_snapshot_policy' verb
+# applies a snapshot policy to the specified volume
+def ontap_volume_snapshot_policy(in_args):
+   response = requests.patch("https://"+in_args.svm+"/api/storage/volumes/"+in_args.uuid, '{"snapshot_policy": "'+in_args.policy+'"}', auth=(str_username, str_password), verify=False)
+   print "status_code: " + str(response.status_code)
+   if (response.status_code == 200 or response.status_code == 201 or response.status_code == 202):
+      print "snapshot policy "+in_args.policy+" applied to volume "+in_args.uuid
+   else:
+      print "ontap_helper.py: error: " + str(json.loads(response.content))
+
 # function main:
 if __name__ == "__main__":
 
    # instantiate argparse and set subparsers
    obj_argparser = argparse.ArgumentParser()
    obj_subparsers = obj_argparser.add_subparsers()
-   obj_subparser01 = obj_subparsers.add_parser("version")
-   obj_subparser01.add_argument("svm", help="Name of SVM to query")
-   obj_subparser01.set_defaults(func=ontap_version)
+   #obj_subparser01 = obj_subparsers.add_parser("version")
+   #obj_subparser01.add_argument("svm", help="Name of SVM to query")
+   #obj_subparser01.set_defaults(func=ontap_version)
    obj_subparser02 = obj_subparsers.add_parser("snapmirror_show")
    obj_subparser02.add_argument("svm", help="Name of SVM to query")
    obj_subparser02.add_argument("uuid", help="UUID of the SnapMirror relationship", type=str, nargs='?')
@@ -183,6 +194,11 @@ if __name__ == "__main__":
    obj_subparser08 = obj_subparsers.add_parser("share_show")
    obj_subparser08.add_argument("svm", help="Name of SVM to query")
    obj_subparser08.set_defaults(func=ontap_share_show)
+   obj_subparser09 = obj_subparsers.add_parser("volume_snapshot_policy")
+   obj_subparser09.add_argument("svm", help="Name of SVM to query")
+   obj_subparser09.add_argument("uuid", help="UUID of the volume")
+   obj_subparser09.add_argument("policy", help="Name of snapshot policy to apply")
+   obj_subparser09.set_defaults(func=ontap_volume_snapshot_policy)
    ns_args = obj_argparser.parse_args()
 
    # type and syntax checking on command line args
