@@ -24,7 +24,6 @@ for au in response.json():
 print("***** DATA COLLECTORS *****\n")
 request_url = tenant_url+"rest/v1/collector/datasources"
 response = requests.get(request_url,headers=tenant_header)
-print(json.dumps(response.json(), indent=1))
 for dc in response.json():
    print("Data Collector: " + dc["name"])
    for dc_field in dc_fields.split(","):
