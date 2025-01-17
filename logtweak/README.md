@@ -5,7 +5,8 @@ The format of the config.ini file is as follows:
 ```   [name-of-custom-tweak]
   fn_path = /path/to/py/file/containing/custom/tweak/function
   src_log = /path/to/src/log/file
-  dst_log = /path/to/dst/log/file```
+  dst_log = /path/to/dst/log/file
+```
 
 The Python code in the file referenced by fn_path must start with the line...
 `def tweak_fn_template(loglines):`
