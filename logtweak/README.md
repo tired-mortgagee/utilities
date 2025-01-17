@@ -9,10 +9,12 @@ The format of the config.ini file is as follows:
 ```
 
 The Python code in the file referenced by fn_path must start with the line...
+
 `def tweak_fn_template(loglines):`
+
 ...  and inside this function you define how to parse the array of new log entries form the src_log file that is passwed to the function by the loglines argument. You must return a string pucntuated with newline characters. The code in your fn_path file is loaded at runtime after being leared about in the config.ini file. 
 
-An install.sh file has been provided to install all the files into the /opt/logtweak directory and to create, enable, and start a new systemd service called logtweak.service.
+An `install.sh` file has been provided to install all the files into the `/opt/logtweak` directory and to create, enable, and start a new systemd service called logtweak.service.
 
 Two example fn_path files have been provided:
 * tweak-fn-001.py: This parses a NetApp BXP Connector log file for the ds_occmauth_1 container to a one-line format, removing all non-human logon events
