@@ -3,10 +3,10 @@ Logtweak is a Python utility that polls log files on a system for new lines, app
 
 The format of the config.ini file is as follows:
 ```
-   [name-of-custom-tweak]
-  fn_path = /path/to/py/file/containing/custom/tweak/function
-  src_log = /path/to/src/log/file
-  dst_log = /path/to/dst/log/file
+[name-of-custom-tweak]
+fn_path = /path/to/py/file/containing/custom/tweak/function
+src_log = /path/to/src/log/file
+dst_log = /path/to/dst/log/file
 ```
 
 The Python code in the file referenced by fn_path must start with the line...
