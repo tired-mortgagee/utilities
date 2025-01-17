@@ -2,7 +2,8 @@
 Logtweak is a Python utility that polls log files on a system for new lines, applies a custom-defined 'tweak' function to the string output, and then appends the output to a new file location.
 
 The format of the config.ini file is as follows:
-```   [name-of-custom-tweak]
+```
+   [name-of-custom-tweak]
   fn_path = /path/to/py/file/containing/custom/tweak/function
   src_log = /path/to/src/log/file
   dst_log = /path/to/dst/log/file
